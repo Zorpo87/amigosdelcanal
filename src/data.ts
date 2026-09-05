@@ -3,6 +3,8 @@ export const club = {
   fullName: 'Club de Atletismo Pontanés Amigos del Canal',
   location: 'Puente Genil, Córdoba',
   email: 'clubamigosdelcanal@gmail.com',
+  /** Número internacional sin + ni espacios (ej. 34612345678) */
+  whatsapp: '34600000000',
   twitter: '@Amigosdelcanal',
   members: '160+',
   founded: '1993/94',
