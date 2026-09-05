@@ -1,0 +1,127 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: var(--header-h);
+  transition: background 0.3s ease, border-color 0.3s ease,
+    backdrop-filter 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.header.is-scrolled {
+  background: #0a0a0acc;
+  backdrop-filter: blur(14px);
+  border-bottom-color: #ffffff10;
+}
+
+.header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  z-index: 2;
+}
+
+.header__mark {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 18px #7cfc0088;
+}
+
+.header__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.header__nav a:not(.btn) {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.header__nav a:not(.btn):hover {
+  color: var(--green);
+}
+
+.header__cta {
+  padding: 0.65rem 1.15rem;
+  font-size: 0.95rem;
+}
+
+.header__toggle {
+  display: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.header__toggle span {
+  display: block;
+  width: 1.4rem;
+  height: 2px;
+  margin: 0.35rem auto;
+  background: var(--text);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.header__toggle.is-open span:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.header__toggle.is-open span:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+@media (max-width: 860px) {
+  .header__toggle {
+    display: block;
+  }
+
+  .header__nav {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.75rem;
+    background: #070707f2;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .header__nav.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .header__nav a:not(.btn) {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+}

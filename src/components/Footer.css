@@ -1,0 +1,34 @@
+.footer {
+  border-top: 1px solid #ffffff12;
+  padding: 2rem 0 2.4rem;
+  background: #070707;
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+}
+
+.footer__brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.footer__tag,
+.footer__copy {
+  margin: 0.25rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.footer__copy {
+  margin: 0;
+}

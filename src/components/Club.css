@@ -1,0 +1,70 @@
+.club {
+  background:
+    linear-gradient(90deg, #0c140c 0%, #0a0a0a 45%, #0a0a0a 100%);
+}
+
+.club__layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.club__story {
+  color: var(--text-muted);
+  margin: -1.25rem 0 2rem;
+  max-width: 38rem;
+}
+
+.club__aside {
+  padding: 1.75rem;
+  border-left: 3px solid var(--green);
+  background: linear-gradient(180deg, #122012 0%, #0a0a0a 100%);
+}
+
+.club__aside h3 {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.club__aside ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.club__aside li {
+  color: var(--text-muted);
+  padding-left: 0.9rem;
+  position: relative;
+  font-size: 0.98rem;
+}
+
+.club__aside li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--green-soft);
+}
+
+.club__aside-note {
+  margin: 1.25rem 0 0;
+  color: #8a8a8a;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 860px) {
+  .club__layout {
+    grid-template-columns: 1fr;
+  }
+}

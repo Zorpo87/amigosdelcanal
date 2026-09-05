@@ -1,0 +1,91 @@
+.contact {
+  background:
+    radial-gradient(ellipse 60% 45% at 0% 100%, #245c1833 0%, transparent 50%),
+    var(--bg);
+}
+
+.contact__layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.contact__info {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.contact__info li {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.contact__info span {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-soft);
+}
+
+.contact__info p,
+.contact__info a {
+  margin: 0;
+  color: var(--text);
+}
+
+.contact__info a:hover {
+  color: var(--green);
+}
+
+.contact__form {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid #ffffff16;
+  background: linear-gradient(180deg, #101610 0%, #0a0a0a 100%);
+}
+
+.contact__field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.contact__field label {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.contact__field input,
+.contact__field textarea {
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid #ffffff1a;
+  border-radius: var(--radius);
+  background: #050805;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s ease;
+  resize: vertical;
+}
+
+.contact__field input:focus,
+.contact__field textarea:focus {
+  border-color: var(--green);
+}
+
+.contact__success {
+  margin: 0;
+  color: var(--green-soft);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 860px) {
+  .contact__layout {
+    grid-template-columns: 1fr;
+  }
+}
