@@ -48,6 +48,13 @@ export default function GalleryAlbum() {
     )
   }
 
+  const goPrev = () =>
+    setActive((i) =>
+      i === null ? 0 : (i - 1 + album.photos.length) % album.photos.length,
+    )
+  const goNext = () =>
+    setActive((i) => (i === null ? 0 : (i + 1) % album.photos.length))
+
   return (
     <section className="section article-page gallery-album-page">
       <div className="container">
@@ -94,6 +101,22 @@ export default function GalleryAlbum() {
               aria-label="Cerrar"
             >
               ×
+            </button>
+            <button
+              type="button"
+              className="gallery-lightbox-nav is-prev"
+              onClick={goPrev}
+              aria-label="Foto anterior"
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              className="gallery-lightbox-nav is-next"
+              onClick={goNext}
+              aria-label="Foto siguiente"
+            >
+              ›
             </button>
             <img
               className="gallery-lightbox-img"

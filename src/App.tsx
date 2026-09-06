@@ -46,6 +46,20 @@ function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
   const close = () => setOpen(false)
 
   return (
@@ -71,32 +85,42 @@ function Nav() {
           <span />
           <span />
         </button>
-        <ul className="nav-links">
-          <li>
-            <a href="/noticias" onClick={close}>
-              Noticias
-            </a>
-          </li>
-          <li>
-            <a href="/carreras" onClick={close}>
-              Carreras
-            </a>
-          </li>
-          <li>
-            <a href="/#club" onClick={close}>
-              El club
-            </a>
-          </li>
-          <li>
-            <a href="/galeria" onClick={close}>
-              Galería
-            </a>
-          </li>
-        </ul>
-        <a className="nav-cta" href="/#contacto" onClick={close}>
-          Contacto
-        </a>
+        <div className="nav-menu">
+          <ul className="nav-links">
+            <li>
+              <a href="/noticias" onClick={close}>
+                Noticias
+              </a>
+            </li>
+            <li>
+              <a href="/carreras" onClick={close}>
+                Carreras
+              </a>
+            </li>
+            <li>
+              <a href="/#club" onClick={close}>
+                El club
+              </a>
+            </li>
+            <li>
+              <a href="/galeria" onClick={close}>
+                Galería
+              </a>
+            </li>
+          </ul>
+          <a className="nav-cta" href="/#contacto" onClick={close}>
+            Contacto
+          </a>
+        </div>
       </div>
+      {open && (
+        <button
+          type="button"
+          className="nav-backdrop"
+          aria-label="Cerrar menú"
+          onClick={close}
+        />
+      )}
     </header>
   )
 }
@@ -106,6 +130,8 @@ function Hero() {
   const slide = heroSlides[active]
 
   useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce) return
     const id = window.setInterval(() => {
       setActive((i) => (i + 1) % heroSlides.length)
     }, 6000)
@@ -339,6 +365,8 @@ function Gallery() {
   const total = gallery.length
 
   useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce) return
     const timer = window.setInterval(() => {
       setIndex((i) => (i + 1) % total)
     }, 5200)
