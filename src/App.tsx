@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
-import { club, gallery, getLatestNews, races, sponsors } from './data'
+import { club, gallery, getLatestNews, heroSlides, races, sponsors } from './data'
 import ContactSection from './ContactSection'
 import NewsArticle from './NewsArticle'
 import NewsList from './NewsList'
@@ -102,65 +102,38 @@ function Nav() {
 }
 
 function Hero() {
-  const heroRef = useRef<HTMLElement>(null)
-  const mediaRef = useRef<HTMLDivElement>(null)
+  const [active, setActive] = useState(0)
+  const slide = heroSlides[active]
 
   useEffect(() => {
-    const hero = heroRef.current
-    const media = mediaRef.current
-    if (!hero || !media) return
+    const id = window.setInterval(() => {
+      setActive((i) => (i + 1) % heroSlides.length)
+    }, 6000)
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduceMotion) return
-
-    let raf = 0
-    let targetX = 0
-    let targetY = 0
-    let currentX = 0
-    let currentY = 0
-
-    const onMove = (e: MouseEvent) => {
-      const rect = hero.getBoundingClientRect()
-      const nx = (e.clientX - rect.left) / rect.width - 0.5
-      const ny = (e.clientY - rect.top) / rect.height - 0.5
-      targetX = nx * 18
-      targetY = ny * 12
-    }
-
-    const tick = () => {
-      currentX += (targetX - currentX) * 0.06
-      currentY += (targetY - currentY) * 0.06
-      media.style.setProperty('--parallax-x', `${currentX.toFixed(2)}px`)
-      media.style.setProperty('--parallax-y', `${currentY.toFixed(2)}px`)
-      raf = requestAnimationFrame(tick)
-    }
-
-    hero.addEventListener('mousemove', onMove)
-    raf = requestAnimationFrame(tick)
-
-    return () => {
-      hero.removeEventListener('mousemove', onMove)
-      cancelAnimationFrame(raf)
-    }
+    return () => window.clearInterval(id)
   }, [])
 
   return (
-    <section className="hero" id="inicio" ref={heroRef}>
-      <div className="hero-media" ref={mediaRef} aria-hidden>
-        <img
-          className="hero-photo"
-          src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=2400&q=85"
-          alt=""
-          width={2400}
-          height={1600}
-          fetchPriority="high"
-        />
-        <div className="hero-photo-blur" />
+    <section className="hero" id="inicio" aria-roledescription="carrusel">
+      <div className="hero-media" aria-hidden>
+        {heroSlides.map((item, index) => (
+          <div
+            key={item.id}
+            className={`hero-slide${index === active ? ' is-active' : ''}`}
+          >
+            <img
+              className="hero-photo"
+              src={item.image}
+              alt=""
+              width={2400}
+              height={1600}
+              fetchPriority={index === 0 ? 'high' : 'low'}
+            />
+          </div>
+        ))}
         <div className="hero-shade" />
-        <div className="hero-speed" />
-        <div className="hero-glow" />
       </div>
-      <div className="hero-track" aria-hidden />
+
       <div className="hero-content">
         <p className="hero-kicker">
           <img
@@ -171,29 +144,43 @@ function Hero() {
             height={40}
             aria-hidden
           />
-          Club de atletismo · Puente Genil
+          Desde Puente Genil, con ganas
         </p>
         <h1 className="hero-brand">
           Amigos
           <span>del Canal</span>
         </h1>
-        <p className="hero-headline">Corremos juntos desde Puente Genil</p>
-        <p className="hero-sub">
-          Club de atletismo y running con más de tres décadas de kilómetros, amistad y
-          competición. Representamos a {club.location.split(',')[0]} en cada salida.
-        </p>
+        <div key={slide.id} className="hero-copy">
+          <p className="hero-headline">{slide.headline}</p>
+          <p className="hero-sub">{slide.text}</p>
+        </div>
         <div className="hero-actions">
           <a className="btn btn-primary" href="#carreras">
             Ver carreras
           </a>
           <a className="btn btn-ghost" href="#club">
-            Conoce el club
+            Conócenos
           </a>
         </div>
-        <div className="hero-meta">
-          <strong>{club.members}</strong>
-          atletas · desde {club.founded}
+      </div>
+
+      <div className="hero-chrome">
+        <div className="hero-dots" role="tablist" aria-label="Imágenes del hero">
+          {heroSlides.map((item, index) => (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              aria-selected={index === active}
+              aria-label={`Mostrar imagen ${index + 1}`}
+              className={`hero-dot${index === active ? ' is-active' : ''}`}
+              onClick={() => setActive(index)}
+            />
+          ))}
         </div>
+        <p className="hero-meta">
+          Más de {club.members.replace('+', '')} socios · desde {club.founded}
+        </p>
       </div>
     </section>
   )
@@ -245,31 +232,14 @@ function News() {
 }
 
 function Races() {
-  const [activePoster, setActivePoster] = useState<(typeof races)[number] | null>(null)
-
-  useEffect(() => {
-    if (!activePoster) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setActivePoster(null)
-    }
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    window.addEventListener('keydown', onKey)
-    return () => {
-      document.body.style.overflow = prev
-      window.removeEventListener('keydown', onKey)
-    }
-  }, [activePoster])
-
   return (
     <section className="section" id="carreras">
       <div className="container">
         <div className="reveal">
           <p className="section-label">Calendario</p>
-          <h2 className="section-title">Carreras</h2>
+          <h2 className="section-title">Carreras oficiales del club temporada 26/27</h2>
           <p className="section-lead">
-            Nuestra prueba estrella, el duatlón local y las citas donde el club suele
-            estar presente. Pulsa el cartel para verlo ampliado.
+            Diez citas oficiales para correr juntos de septiembre a junio.
           </p>
         </div>
         <div className="races-wrap">
@@ -277,36 +247,15 @@ function Races() {
             <article
               className={`race-row reveal${race.highlight ? ' is-highlight' : ''}`}
               key={race.id}
-              style={{ transitionDelay: `${i * 60}ms` }}
+              style={{ transitionDelay: `${i * 40}ms` }}
             >
-              <button
-                type="button"
-                className="race-poster-btn"
-                onClick={() => setActivePoster(race)}
-                aria-label={`Ver cartel de ${race.name}`}
-              >
-                <img
-                  className="race-poster"
-                  src={race.poster}
-                  alt={race.posterAlt}
-                  width={120}
-                  height={170}
-                  loading="lazy"
-                />
-                <span className="race-poster-zoom" aria-hidden>
-                  Ampliar
-                </span>
-              </button>
+              <div className="race-date">
+                <strong>{race.date}</strong>
+              </div>
               <div className="race-body">
                 <div className="race-edition">{race.edition}</div>
                 <h3>{race.name}</h3>
-                <p>
-                  {race.place} · {race.note}
-                </p>
-              </div>
-              <div className="race-stats">
-                <strong>{race.distance}</strong>
-                {race.date}
+                <p>{race.place}</p>
               </div>
             </article>
           ))}
@@ -317,39 +266,6 @@ function Races() {
           </Link>
         </div>
       </div>
-
-      {activePoster && (
-        <div
-          className="poster-lightbox"
-          role="dialog"
-          aria-modal="true"
-          aria-label={activePoster.posterAlt}
-          onClick={() => setActivePoster(null)}
-        >
-          <div className="poster-lightbox-panel" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="poster-lightbox-close"
-              onClick={() => setActivePoster(null)}
-              aria-label="Cerrar cartel"
-            >
-              ×
-            </button>
-            <img
-              src={activePoster.poster}
-              alt={activePoster.posterAlt}
-              className="poster-lightbox-img"
-            />
-            <div className="poster-lightbox-meta">
-              <span>{activePoster.edition}</span>
-              <strong>{activePoster.name}</strong>
-              <p>
-                {activePoster.date} · {activePoster.place}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }

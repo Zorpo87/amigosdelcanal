@@ -80,27 +80,27 @@ export default function GalleryAlbum() {
 
       {active !== null && (
         <div
-          className="poster-lightbox"
+          className="gallery-lightbox"
           role="dialog"
           aria-modal="true"
           aria-label={album.photos[active].caption}
           onClick={() => setActive(null)}
         >
-          <div className="poster-lightbox-panel gallery-lightbox-panel" onClick={(e) => e.stopPropagation()}>
+          <div className="gallery-lightbox-panel" onClick={(e) => e.stopPropagation()}>
             <button
               type="button"
-              className="poster-lightbox-close"
+              className="gallery-lightbox-close"
               onClick={() => setActive(null)}
               aria-label="Cerrar"
             >
               ×
             </button>
             <img
-              className="poster-lightbox-img"
+              className="gallery-lightbox-img"
               src={album.photos[active].src}
               alt={album.photos[active].caption}
             />
-            <div className="poster-lightbox-meta">
+            <div className="gallery-lightbox-meta">
               <span>
                 {active + 1} / {album.photos.length}
               </span>
