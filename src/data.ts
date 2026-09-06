@@ -29,8 +29,8 @@ export const heroSlides = [
   {
     id: 3,
     image: '/club/fb-10.jpg',
-    headline: 'Nueva equipación para tres años',
-    text: 'Ya es oficial: la vestiremos con orgullo. ¡Prepara las zapatillas y nos vemos en la línea de salida!',
+    headline: '¡Estrenamos colores! Nueva equipación del club',
+    text: 'El verde que nos define, listo para vestir durante tres temporadas. Orgullo pontanés en cada kilómetro.',
   },
 ]
 
