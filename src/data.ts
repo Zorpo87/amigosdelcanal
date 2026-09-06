@@ -63,7 +63,7 @@ export const news = [
     title: '¡Presentamos oficialmente la XXVIII Subida a Cordobilla!',
     excerpt:
       'Domingo 20 de septiembre, 10:00 h, Plaza del Ancla. Nueva equipación y carrera solidaria.',
-    cover: '/club/fb-10.jpg',
+    cover: '/club/presentacion-1.jpg',
     photos: [
       '/club/presentacion-2.jpg',
       '/club/presentacion-3.jpg',
@@ -89,12 +89,12 @@ export const news = [
     title: 'Nueva equipación para los próximos tres años',
     excerpt:
       'Presentamos la indumentaria que vestiremos con orgullo. Gracias a socios, amigos y patrocinadores.',
-    cover: '/club/presentacion-1.jpg',
+    cover: '/club/fb-10.jpg',
     photos: [
-      '/club/presentacion-1.jpg',
+      '/club/fb-10.jpg',
       '/club/presentacion-4.jpg',
       '/club/presentacion-5.jpg',
-      '/club/fb-10.jpg',
+      '/club/presentacion-1.jpg',
     ],
     galleryUrl: '/galeria/nueva-equipacion-2026',
     body: [
