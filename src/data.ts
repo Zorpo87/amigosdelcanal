@@ -22,13 +22,13 @@ export const heroSlides = [
   },
   {
     id: 2,
-    image: '/club/fb-10.jpg',
-    headline: '20 de septiembre · Plaza del Ancla',
-    text: 'Salida a las 10:00 h y meta en la aldea de Cordobilla. Unos 8 km por la antigua carretera y las huertas.',
+    image: '/club/presentacion-1.jpg',
+    headline: 'Camiseta oficial de la Subida a Cordobilla 2026',
+    text: 'La indumentaria de la XXVIII edición: el dorsal de la prueba con el sello de Amigos del Canal.',
   },
   {
     id: 3,
-    image: '/club/presentacion-1.jpg',
+    image: '/club/fb-10.jpg',
     headline: 'Nueva equipación para tres años',
     text: 'Ya es oficial: la vestiremos con orgullo. ¡Prepara las zapatillas y nos vemos en la línea de salida!',
   },
